@@ -105,8 +105,10 @@ public class Xml {
     // - get an element, this or above this
     private Node parentElem(Node node, String name) {
         while(node != null) {
-            String tagName = ((Element)node).getTagName();
-            if(name == null || tagName.equals(name)) break;
+            if (node.getNodeType() == NODE_TYPE_ELEMENT) {
+                String tagName = ((Element)node).getTagName();
+                if(name == null || tagName.equals(name)) break;
+            }
             node = node.getParentNode();
         }
         return node;
@@ -117,9 +119,10 @@ public class Xml {
     // - get an element, this or before this
     private Node prevElem(Node node, String name) {
         while(node != null) {
-            if(node.getNodeType() != NODE_TYPE_ELEMENT) continue;
-            String tagName = ((Element)node).getTagName();
-            if(name == null || tagName.equals(name)) break;
+            if(node.getNodeType() == NODE_TYPE_ELEMENT) {
+                String tagName = ((Element)node).getTagName();
+                if(name == null || tagName.equals(name)) break;
+            }
             node = node.getPreviousSibling();
         }
         return node;
@@ -130,9 +133,10 @@ public class Xml {
     // - get an element, this or after this
     private Node nextElem(Node node, String name) {
         while(node != null) {
-            if(node.getNodeType() != NODE_TYPE_ELEMENT) continue;
-            String tagName = ((Element)node).getTagName();
-            if(name == null || tagName.equals(name)) break;
+            if(node.getNodeType() == NODE_TYPE_ELEMENT) {
+                String tagName = ((Element)node).getTagName();
+                if(name == null || tagName.equals(name)) break;
+            }
             node = node.getNextSibling();
         }
         return node;
