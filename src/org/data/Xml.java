@@ -317,11 +317,9 @@ public class Xml {
     }
 
 
-    // Clone ()
-    // - clones current element to be used elsewhere
-    @Override
-    public Xml clone() throws CloneNotSupportedException {
-        super.clone();
+    // Copy ()
+    // - copies current element to be used elsewhere
+    public Xml copy() {
         return new Xml(elem.cloneNode(true));
     }
 

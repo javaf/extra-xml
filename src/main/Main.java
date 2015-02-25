@@ -10,6 +10,9 @@ public class Main {
     
     public static void main(String[] args) throws Exception {
         Xml data = new Xml("<data><user><id>wolfram77</id><pass>incorrect</pass></user></data>");
-        System.out.println(data);
+        Xml user = data.child();
+        Xml user2 = user.copy();
+        System.out.println(user.equals(user2));
+        System.out.println(user.same(user2));
     }
 }
