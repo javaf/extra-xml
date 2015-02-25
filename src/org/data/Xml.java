@@ -157,6 +157,14 @@ public class Xml {
     }
 
 
+    // Add Next (src, new)
+    // - add a node after current node
+    private void addNext(Node src, Node _new) {
+        _new = adopt(src, _new);
+        src.getParentNode().insertBefore(_new, src.getNextSibling());
+    }
+
+
     // Add (src, new)
     // - add a node inside current node
     private void add(Node src, Node _new) {
@@ -311,7 +319,9 @@ public class Xml {
 
     // Clone ()
     // - clones current element to be used elsewhere
-    public Xml clone() {
+    @Override
+    public Xml clone() throws CloneNotSupportedException {
+        super.clone();
         return new Xml(elem.cloneNode(true));
     }
 
@@ -334,7 +344,7 @@ public class Xml {
     // Add Next (elem)
     // - adds new xml element after current (moves to new)
     public Xml addNext(Xml elem) {
-        addPrev(this.elem.getNextSibling(), elem.elem);
+        addNext(this.elem, elem.elem);
         return elem;
     }
 
@@ -361,6 +371,15 @@ public class Xml {
     }
 
 
+    // Remove ()
+    // - removes current element (moves to parent)
+    public Xml remove() {
+        Node parent = elem.getParentNode();
+        parent.removeChild(elem);
+        return toXml(parent);
+    }
+
+
     // Save ()
     // - saves current element to file
     public Xml save(File file) throws Exception {
@@ -371,6 +390,7 @@ public class Xml {
 
     // To String ()
     // - converts current element to string
+    @Override
     public String toString() {
         return toString(elem);
     }
@@ -386,11 +406,8 @@ public class Xml {
     // Name (val)
     // - set xml tag name (remove if val=null)
     public Xml name(String val) {
-        if (val != null) {
-            document().renameNode(elem, null, val);
-        } else {
-            elem.getParentNode().removeChild(elem);
-        }
+        if (val != null) document().renameNode(elem, null, val);
+        else return remove();
         return this;
     }
 
@@ -412,11 +429,8 @@ public class Xml {
     // Attr (name, val)
     // - set the value of attribute (remove if val=null)
     public Xml attr(String name, String val) {
-        if (val != null) {
-            elem.setAttribute(name, val);
-        } else {
-            elem.removeAttribute(name);
-        }
+        if (val != null) elem.setAttribute(name, val);
+        else elem.removeAttribute(name);
         return this;
     }
 
@@ -448,11 +462,8 @@ public class Xml {
     public Xml childVal(String name, String val) {
         Xml child = child(name);
         child = (child != null) ? child : add(name);
-        if (val != null) {
-            child.val(val);
-        } else {
-            child.name(null);
-        }
+        if (val != null) child.val(val);
+        else child.remove();
         return this;
     }
 }
