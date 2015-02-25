@@ -62,8 +62,8 @@ public class Xml {
             DOMSource source = new DOMSource(node);
             transformer().transform(source, result);
             return result.getWriter().toString();
-        } catch (Exception e) {
         }
+        catch (Exception e) {}
         return null;
     }
 
@@ -74,9 +74,7 @@ public class Xml {
         List<Xml> xmlList = new ArrayList<>();
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i);
-            if (node.getNodeType() != NODE_TYPE_ELEMENT) {
-                continue;
-            }
+            if (node.getNodeType() != NODE_TYPE_ELEMENT) continue;
             xmlList.add(new Xml(node));
         }
         return xmlList;
@@ -89,9 +87,7 @@ public class Xml {
         Map<String, String> strMap = new HashMap<>();
         for (int i = 0; i < nodeMap.getLength(); i++) {
             Node node = nodeMap.item(i);
-            if (node.getNodeType() != NODE_TYPE_ELEMENT) {
-                continue;
-            }
+            if (node.getNodeType() != NODE_TYPE_ELEMENT) continue;
             strMap.put(node.getNodeName(), node.getNodeValue());
         }
         return strMap;
@@ -105,20 +101,38 @@ public class Xml {
     }
 
 
-    // Prev Elem (node)
+    // Parent Elem (node, name)
+    // - get an element, this or above this
+    private Node parentElem(Node node, String name) {
+        while(node != null) {
+            String tagName = ((Element)node).getTagName();
+            if(name == null || tagName.equals(name)) break;
+            node = node.getParentNode();
+        }
+        return node;
+    }
+
+
+    // Prev Elem (node, name)
     // - get an element, this or before this
-    private Node prevElem(Node node) {
-        while (node != null && node.getNodeType() != NODE_TYPE_ELEMENT) {
+    private Node prevElem(Node node, String name) {
+        while(node != null) {
+            if(node.getNodeType() != NODE_TYPE_ELEMENT) continue;
+            String tagName = ((Element)node).getTagName();
+            if(name == null || tagName.equals(name)) break;
             node = node.getPreviousSibling();
         }
         return node;
     }
 
 
-    // Next Elem (node)
+    // Next Elem (node, name)
     // - get an element, this or after this
-    private Node nextElem(Node node) {
-        while (node != null && node.getNodeType() != NODE_TYPE_ELEMENT) {
+    private Node nextElem(Node node, String name) {
+        while(node != null) {
+            if(node.getNodeType() != NODE_TYPE_ELEMENT) continue;
+            String tagName = ((Element)node).getTagName();
+            if(name == null || tagName.equals(name)) break;
             node = node.getNextSibling();
         }
         return node;
@@ -128,9 +142,7 @@ public class Xml {
     // Adopt (src, new)
     // - adopts a node to current document (if required)
     private Node adopt(Node src, Node _new) {
-        if (src.getOwnerDocument().equals(_new.getOwnerDocument())) {
-            return _new;
-        }
+        if (src.getOwnerDocument().equals(_new.getOwnerDocument())) return _new;
         _new = _new.cloneNode(true);
         src.getOwnerDocument().adoptNode(_new);
         return _new;
@@ -153,16 +165,16 @@ public class Xml {
     }
 
 
-    // Constructor (xml)
-    // - parse an XML file
+    // Xml (xml)
+    // - parse an xml file
     public Xml(File xmlFile) throws Exception {
         Document doc = docBuilder().parse(xmlFile);
         elem = doc.getDocumentElement();
     }
 
 
-    // Constructor (xml)
-    // - parse an XML string
+    // Xml (xml)
+    // - parse an xml string
     public Xml(String xmlStr) throws Exception {
         InputSource in = new InputSource();
         in.setCharacterStream(new StringReader(xmlStr));
@@ -206,54 +218,73 @@ public class Xml {
     }
 
 
+    // Parent (name)
+    // get the parent element with given name
+    public Xml parent(String name) {
+        return toXml(parentElem(elem.getParentNode(), name));
+    }
+
+
     // Parent ()
     // get the parent element
     public Xml parent() {
-        return new Xml(elem.getParentNode());
+        return parent(null);
+    }
+
+
+    // Prev (name)
+    // - get previous element with given name
+    public Xml prev(String name) {
+        return toXml(prevElem(elem.getPreviousSibling(), name));
     }
 
 
     // Prev ()
     // - get previous element
     public Xml prev() {
-        return toXml(prevElem(elem.getPreviousSibling()));
+        return prev(null);
+    }
+
+
+    // Next (name)
+    // - get next element with given name
+    public Xml next(String name) {
+        return toXml(nextElem(elem.getNextSibling(), name));
     }
 
 
     // Next ()
     // - get next element
     public Xml next() {
-        return toXml(nextElem(elem.getNextSibling()));
-    }
-
-
-    // Child ()
-    // - get first child element
-    public Xml child() {
-        return toXml(nextElem(elem.getFirstChild()));
+        return next(null);
     }
 
 
     // Child (name)
     // - get first child with given name
     public Xml child(String name) {
-        List<Xml> children = children(name);
-        return children.size() > 0 ? children.get(0) : null;
+        return toXml(nextElem(elem.getFirstChild(), name));
     }
 
 
-    // Last Child ()
-    // - get last child element
-    public Xml lastChild() {
-        return toXml(prevElem(elem.getLastChild()));
+    // Child ()
+    // - get first child
+    public Xml child() {
+        return child(null);
     }
 
 
     // Last Child (name)
     // - get last child with given name
     public Xml lastChild(String name) {
-        List<Xml> children = children(name);
-        return children.size() > 0 ? children.get(children.size() - 1) : null;
+        return toXml(prevElem(elem.getLastChild(), name));
+    }
+
+
+    // Last Child ()
+    // - get last child element
+    public Xml lastChild() {
+        return lastChild(null);
     }
 
 
