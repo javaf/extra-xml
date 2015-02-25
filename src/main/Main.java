@@ -10,11 +10,14 @@ public class Main {
     
     public static void main(String[] args) throws Exception {
         Xml data = new Xml("<data><user><id>wolfram77</id><pass>incorrect</pass></user></data>");
-        Xml id = data.child().child();
+        Xml user = data.child();
+        Xml id = user.child("id");
+        Xml pass = user.child("pass");
         System.out.println(id);
-        System.out.println(id.parent("user"));
-        System.out.println(id.parent("abc"));
-        System.out.println(id.parent());
-        System.out.println(id.root());
+        System.out.println(pass);
+        System.out.println(pass.prev());
+        System.out.println(id.next());
+        System.out.println(user.prev());
+        System.out.println(user.next());
     }
 }
