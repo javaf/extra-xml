@@ -11,8 +11,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Xml data = new Xml("<data><user><id>wolfram77</id><pass>incorrect</pass></user></data>");
         Xml user = data.child();
-        user.child("id").addPrev(user.elem("i"));
-        user.child("id").addNext(user.elem("i"));
+        user.child("id").remove();
         for(Xml child : user.children())
             System.out.println(child.name());
     }
