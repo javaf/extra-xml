@@ -104,12 +104,10 @@ public class Xml {
     // Parent Elem (node, name)
     // - get an element, this or above this
     private Node parentElem(Node node, String name) {
-        while(node != null) {
-            if (node.getNodeType() == NODE_TYPE_ELEMENT) {
-                String tagName = ((Element)node).getTagName();
-                if(name == null || tagName.equals(name)) break;
-            }
-            node = node.getParentNode();
+        for(; node!=null; node=node.getParentNode()) {
+            if(node.getNodeType() != NODE_TYPE_ELEMENT)  continue;
+            String tagName = ((Element)node).getTagName();
+            if(name == null || tagName.equals(name)) break;
         }
         return node;
     }
@@ -118,12 +116,10 @@ public class Xml {
     // Prev Elem (node, name)
     // - get an element, this or before this
     private Node prevElem(Node node, String name) {
-        while(node != null) {
-            if(node.getNodeType() == NODE_TYPE_ELEMENT) {
-                String tagName = ((Element)node).getTagName();
-                if(name == null || tagName.equals(name)) break;
-            }
-            node = node.getPreviousSibling();
+        for(; node!=null; node=node.getPreviousSibling()) {
+            if(node.getNodeType() != NODE_TYPE_ELEMENT) continue;
+            String tagName = ((Element)node).getTagName();
+            if(name == null || tagName.equals(name)) break;
         }
         return node;
     }
@@ -132,12 +128,10 @@ public class Xml {
     // Next Elem (node, name)
     // - get an element, this or after this
     private Node nextElem(Node node, String name) {
-        while(node != null) {
-            if(node.getNodeType() == NODE_TYPE_ELEMENT) {
-                String tagName = ((Element)node).getTagName();
-                if(name == null || tagName.equals(name)) break;
-            }
-            node = node.getNextSibling();
+        for(; node!=null; node=node.getNextSibling()) {
+            if(node.getNodeType() != NODE_TYPE_ELEMENT) continue;
+            String tagName = ((Element)node).getTagName();
+            if(name == null || tagName.equals(name)) break;
         }
         return node;
     }
