@@ -23,4 +23,4 @@ Let's go through this example to better understand what XML is.
 
 | `class Xml` |   |
 |-------------|---|
-| **Xml** <br/> `(file)`, `(str)`                                                                                            | parse an xml file or string <br/> `Xml xml = new Xml(new File("students.xml"));` <br/>                                     `Xml xml = new Xml("<movie name="Interstellar"><director>Christopher Nolan</director></movie>")` |
+| **Xml** <br/> `(file)`, `(str)`                                                                                            | parse an xml file or string <br/> `Xml xml = new Xml(new File("students.xml"));` <br/>                                     `Xml xml = new Xml("<movie name="Interstellar"></movie>")` |
