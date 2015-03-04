@@ -173,17 +173,17 @@ public class Xml {
 
     // Xml (xml)
     // - parse an xml file
-    public Xml(File xmlFile) throws Exception {
-        Document doc = docBuilder().parse(xmlFile);
+    public Xml(File file) throws Exception {
+        Document doc = docBuilder().parse(file);
         elem = doc.getDocumentElement();
     }
 
 
     // Xml (xml)
     // - parse an xml string
-    public Xml(String xmlStr) throws Exception {
+    public Xml(String str) throws Exception {
         InputSource in = new InputSource();
-        in.setCharacterStream(new StringReader(xmlStr));
+        in.setCharacterStream(new StringReader(str));
         Document doc = docBuilder().parse(in);
         elem = doc.getDocumentElement();
     }
