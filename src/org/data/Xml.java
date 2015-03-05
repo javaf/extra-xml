@@ -225,14 +225,14 @@ public class Xml {
 
 
     // Parent (name)
-    // get the parent element with given name
+    // get parent element with given name
     public Xml parent(String name) {
         return toXml(parentElem(elem.getParentNode(), name));
     }
 
 
     // Parent ()
-    // get the parent element
+    // get parent element
     public Xml parent() {
         return parent(null);
     }
