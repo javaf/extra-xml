@@ -25,3 +25,4 @@ Let's go through this example to better understand what XML is.
 | `class Xml` |   |
 |-------------|---|
 | **Xml** <br/> `(file)`, `(str)`                                                                                            | parse an xml file or string <br/>                                                                                          `Xml xml = new Xml(new File("students.xml"));` <br/>                                                                       `Xml xml = new Xml("<movie name="Xmlon"/>");` |
+| **equals** <br/> `(xml)`                                                                                                   | check if 2 xml elements are equal (content) <br/>                                                                          `boolean equals = xml1.equals(xml2);` | 
