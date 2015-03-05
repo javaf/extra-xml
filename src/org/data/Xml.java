@@ -322,18 +322,18 @@ public class Xml {
     }
 
 
-    // Add Prev (elem)
-    // - adds new xml element before current (moves to new)
-    public Xml addPrev(Xml elem) {
-        addPrev(this.elem, elem.elem);
-        return elem;
+    // Add Prev (xml)
+    // - adds new element before current (returns new)
+    public Xml addPrev(Xml xml) {
+        addPrev(elem, xml.elem);
+        return xml;
     }
 
 
-    // Add Prev (elemStr)
-    // - adds new xml element before current (moves to new)
-    public Xml addPrev(String elemStr) {
-        return addPrev(elem(elemStr));
+    // Add Prev (name)
+    // - adds new element before current (returns new)
+    public Xml addPrev(String name) {
+        return addPrev(elem(name));
     }
 
 
