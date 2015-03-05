@@ -352,18 +352,18 @@ public class Xml {
     }
 
 
-    // Add (elem)
-    // - adds new xml element as child (moves to new)
-    public Xml add(Xml elem) {
-        add(this.elem, elem.elem);
-        return elem;
+    // Add (xml)
+    // - adds new element as child (returns new)
+    public Xml add(Xml xml) {
+        add(elem, xml.elem);
+        return xml;
     }
 
 
-    // Add (elemStr)
-    // - adds new xml element as child (moves to new)
-    public Xml add(String elemStr) {
-        return add(elem(elemStr));
+    // Add (name)
+    // - adds new element as child (returns new)
+    public Xml add(String name) {
+        return add(elem(name));
     }
 
 
