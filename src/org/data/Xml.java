@@ -212,7 +212,7 @@ public class Xml {
 
     // Elem ()
     // - get current W3C Element
-    public Element elem() {
+    public Element element() {
         return elem;
     }
 
