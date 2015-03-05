@@ -368,11 +368,10 @@ public class Xml {
 
 
     // Remove ()
-    // - removes current element (moves to parent)
-    public Xml remove() {
+    // - removes current element
+    public void remove() {
         Node parent = elem.getParentNode();
         parent.removeChild(elem);
-        return toXml(parent);
     }
 
 
