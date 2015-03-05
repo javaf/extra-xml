@@ -338,17 +338,17 @@ public class Xml {
 
 
     // Add Next (elem)
-    // - adds new xml element after current (moves to new)
-    public Xml addNext(Xml elem) {
-        addNext(this.elem, elem.elem);
-        return elem;
+    // - adds new element after current (returns new)
+    public Xml addNext(Xml xml) {
+        addNext(elem, xml.elem);
+        return xml;
     }
 
 
-    // Add Next (elemStr)
-    // - adds new xml element after current (moves to new)
-    public Xml addNext(String elemStr) {
-        return addNext(elem(elemStr));
+    // Add Next (name)
+    // - adds new element after current (returns new)
+    public Xml addNext(String name) {
+        return addNext(elem(name));
     }
 
 
