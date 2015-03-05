@@ -309,7 +309,7 @@ public class Xml {
 
 
     // Elem (name)
-    // - create a new element with given tag name
+    // - create a new element with given name
     public Xml elem(String name) {
         return new Xml(document().createElement(name));
     }
