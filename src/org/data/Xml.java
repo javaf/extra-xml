@@ -393,14 +393,14 @@ public class Xml {
 
 
     // Name ()
-    // - get xml tag name
+    // - get element name
     public String name() {
         return elem.getTagName();
     }
 
 
     // Name (val)
-    // - set xml tag name (remove if val=null)
+    // - set element name (remove if val=null)
     public Xml name(String val) {
         if (val != null) document().renameNode(elem, null, val);
         else return remove();
@@ -409,21 +409,21 @@ public class Xml {
 
 
     // Attr ()
-    // - get all attributes
+    // - get element attributes
     public Map<String, String> attr() {
         return toStringMap(elem.getAttributes());
     }
 
 
     // Attr (name)
-    // - get the value of given attribute name
+    // - get value of attribute
     public String attr(String name) {
         return elem.getAttribute(name);
     }
 
 
     // Attr (name, val)
-    // - set the value of attribute (remove if val=null)
+    // - set value of attribute (remove if val=null)
     public Xml attr(String name, String val) {
         if (val != null) elem.setAttribute(name, val);
         else elem.removeAttribute(name);
