@@ -190,14 +190,14 @@ public class Xml {
 
 
     // Equals (xml)
-    // - check if 2 xml elements are equal
+    // - check if 2 xml elements are equal (content)
     public boolean equals(Xml xml) {
         return elem.isEqualNode(xml.elem);
     }
 
     
     // Same (xml)
-    // - check if 2 xml elements are same
+    // - check if 2 xml elements are same (content & reference)
     public boolean same(Xml xml) {
         return elem.isSameNode(xml.elem);
     }
