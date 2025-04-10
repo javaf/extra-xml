@@ -50,3 +50,4 @@ Let's go through this example to better understand what XML is.
 | **childVal** <br/> `(name)`, <br/> `(name, val)`                                                                                 | get or set value of child element <br/>                                                                                    `String val = xml.childVal("satellite");` <br/>                                                                              `xml.childVal("satellite", "ISS");` |
 
 ![](https://ga-beacon.deno.dev/G-G1E8HNDZYY:v51jklKGTLmC3LAZ4rJbIQ/github.com/javaf/extra-xml)
+![](https://ga-beacon.deno.dev/G-RC63DPBH3P:SH3Eq-NoQ9mwgYeHWxu7cw/github.com/nodef/extra-xml.java)
